@@ -16,7 +16,10 @@ import base from '../base';
 
   componentDidMount() {
     const { params } = this.props.match;
-    console.log(params);
+    const localStorageRef = localStorage.getItem(params.storeId);
+    if(localStorageRef) {
+      this.setState({ order: JSON.parse(localStorageRef) })
+    }
     this.ref = base.syncState(`${params.storeId}/fishes`, {
       context: this,
       state: "fishes"
@@ -25,6 +28,11 @@ import base from '../base';
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.order);
+    localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
   }
 
    addFish = (fish) => {
