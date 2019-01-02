@@ -31,7 +31,6 @@ import base from '../base';
   }
 
   componentDidUpdate() {
-    console.log(this.state.order);
     localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order));
   }
 
@@ -40,6 +39,12 @@ import base from '../base';
     fishes[`fish${Date.now()}`] = fish;
     this.setState({ fishes });
     };
+
+    updateFish = (key, updatedFish) => {
+      const fishes = {...this.state.fishes};
+      fishes[key] = updatedFish;
+      this.setState({ fishes });
+    }
 
     loadSampleFishes = () => {
       this.setState({ fishes: sampleFishes });
@@ -71,7 +76,9 @@ import base from '../base';
           />
           <Inventory
             addFish={this.addFish}
+            updateFish={this.updateFish}
             loadSampleFishes={this.loadSampleFishes}
+            fishes={this.state.fishes}
           />
        </div>
      )
