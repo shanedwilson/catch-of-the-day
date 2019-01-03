@@ -101,6 +101,7 @@ import base from '../base';
             deleteFish={this.deleteFish}
             loadSampleFishes={this.loadSampleFishes}
             fishes={this.state.fishes}
+            storeId={this.props.match.params.storeId}
           />
        </div>
      )
